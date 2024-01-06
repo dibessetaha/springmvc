@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html"
+>
+<head>
+    <script src="webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
+    <meta charset="UTF-8">
+    <title>Monument</title>
+</head>
+<body>
+<div layout:fragment="content" >
+    <div>
+        <div class="card" >
+            <div class="card-header">Liste Monuments</div>
+            <div class="card-body">
+                <form th:action="@{monuments}" method="get" >
+                    <label>Mot Cle:</label>
+                    <input type="text" name="keyword"  placeholder="Rechercher par ID ou Nom" th:value="${keyword}"/>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search" ></i>
+                    </button>
+                </form>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Geohash</th>
+                        <th>Nom</th>
+                        <th>Propriétaire</th>
+                        <th>Type</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Lieu</th>
+                        <th>Celebrities</th>
+                        <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Action</th>
+                    </tr>
+                    <tbody>
+                    <tr th:each="monument : ${monuments}">
+                        <td th:text="${monument.geohash}"></td>
+                        <td th:text="${monument.nom}"></td>
+                        <td th:text="${monument.proprietaire}"></td>
+                        <td th:text="${monument.typeMonument}"></td>
+                        <td th:text="${monument.latitude}"></td>
+                        <td th:text="${monument.longitude}"></td>
+                        <td th:text="${monument.codeLieu.nomCom}"></td>
+                        <td>
+                            <button class="btn btn-info" >Celebrités</button>
+                        </td>
+                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >
+                            <a onclick="javascript:return confirm('etes vous sure ?')" th:href="@{/admin/delete(id=${monument.geohash},keyword=${keyword}, page=${currentPage})}" class="btn btn-danger" >
+                                <i class="bi bi-trash" ></i>
+                            </a>
+                            <a th:href="@{/admin/editmonument(id=${monument.geohash})}" class="btn btn-success" >
+                                Modif
+                            </a>
+
+                        </td>
+
+                    </tr>
+                    </tbody>
+                    </thead>
+                </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}">
+                        <a th:href="@{/user/monuments(page=${status.index},keyword=${keyword})}"
+                           th:class="${currentPage==status.index?'btn btn-info ms-1':'btn btn-outline-info ms-1'}"
+                           th:text="${status.index}"
+                        ></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/formMonuments}" class="btn btn-outline-dark" >Ajouter un monument</a>
+
+
+    </div>
+</div>
+
+</body>
+</html>

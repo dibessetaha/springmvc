@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Nouveau Monument</title>
+</head>
+<body>
+<div layout:fragment="content" >
+    <div class="row mt-3" >
+        <div class="col-md-6 offset-3" >
+            <div class="card" >
+                <div class="card-header" >
+                    Modifier Monument
+                </div>
+                <div class="card-body">
+                    <div class="p-3" >
+                        <form th:action="@{/admin/saveMonument}" method="post" >
+                            <div class="mb-2" >
+                                <label class="form-label" for="geohash">GeoHash</label>
+                                <label class="font-monospace" th:text="${monument.geohash}"></label>
+                                <input class="form-control" type="hidden" id="geohash" name="geohash" th:value="${monument.geohash}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label  class="form-label"  for="nom">Nom</label>
+                                <input class="form-control" type="text" id="nom" name="nom" th:value="${monument.nom}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label  class="form-label"  for="proprietaire">Propriétaire</label>
+                                <input class="form-control" type="text" id="proprietaire" name="proprietaire" th:value="${monument.proprietaire}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label"  for="typeMonument">Type de Monument</label>
+                                <input class="form-control" type="text" id="typeMonument" name="typeMonument" th:value="${monument.typeMonument}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="longitude">Longitude</label>
+                                <input class="form-control" type="number" min="-180" max="180" step="any" id="longitude" name="longitude" th:value="${monument.longitude}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label  class="form-label"  for="latitude">Latitude</label>
+                                <input class="form-control" min="-90" max="90" type="number" step="any" id="latitude" name="latitude" th:value="${monument.latitude}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label  for="codeLieu">Code Lieu</label>
+                                <select class="form-select" id="codeLieu" name="codeLieu" required>
+                                    <option value="" selected disabled>Sélectionner le lieu</option>
+                                    <option th:each="lieu : ${lieux}" th:value="${lieu.codeInsee}" th:text="${lieu.nomCom}" th:selected="${lieu.codeInsee == monument.codeLieu?.codeInsee}"></option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success">Modifier</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

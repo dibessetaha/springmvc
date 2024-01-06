@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Nouveau Celebrite</title>
+</head>
+<body>
+<div layout:fragment="content" >
+    <div class="row mt-3" >
+        <div class="col-md-6 offset-3" >
+            <div class="card" >
+                <div class="card-header" >
+                    Nouveau Celebrite
+                </div>
+                <div class="card-body">
+                    <div class="p-3" >
+                        <form th:action="@{/admin/saveCelebrite}" method="post" >
+                            <div class="mb-2" >
+                                <label class="form-label" >Numero</label>
+                                <input class="form-control" type="text"  name="numCelebrite" th:value="${celebrite.numCelebrite}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label  class="form-label"  for="nom">Nom</label>
+                                <input class="form-control" type="text" id="nom" name="nom" th:value="${celebrite.nom}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label  class="form-label"  for="proprietaire">Propriétaire</label>
+                                <input class="form-control" type="text" id="proprietaire" name="prenom" th:value="${celebrite.prenom}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label"  for="typeMonument">Nationalite</label>
+                                <input class="form-control" type="text" id="typeMonument" name="nationalite" th:value="${celebrite.nationalite}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" >Epoque</label>
+                                <input class="form-control" type="text" id="epoque" name="epoque" th:value="${celebrite.epoque}" required/>
+                            </div>
+
+                            <button type="submit" class="btn btn-success">Ajouter</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

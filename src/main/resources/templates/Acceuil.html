@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html"
+>
+<head>
+
+
+    <meta charset="UTF-8">
+    <title>Monument</title>
+</head>
+<body>
+<div layout:fragment="content" >
+    <div class="container mt-5">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-12">
+                <div >
+                    <h1 class="display-5 text-center font-weight-bold">Bienvenue <span th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:text="ADMIN" ></span> dans le Projet Monuments</h1>
+                </div>
+                <div >
+                    <p class="lead text-center">Explorez et gérez les informations sur les monuments, les célébrités et les lieux.</p>
+                    <img src="https://img.freepik.com/photos-gratuite/vue-du-celebre-arc-triomphe-paris_268835-815.jpg?size=626&ext=jpg" alt="Image d'accueil" class="img-fluid rounded mx-auto d-block my-4" style="max-width: 60%;">
+                    <div class="text-center">
+                        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" href="/user/monuments" class="btn btn-dark btn-lg mr-2">Gerer l'application</a>
+                        <a th:if="${#authorization.expression('hasRole(''USER'')')}" href="/user/monuments" class="btn btn-dark btn-lg mr-2">Decouvrir l'application</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>
