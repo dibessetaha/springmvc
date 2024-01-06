@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html"
+>
+
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" integrity="sha384-oOE/3m0LUMPub4kaC09mrdEhIc+e3exm4xOGxAmuFXhBNF4hcg/6MiAXAf5p0P56" crossorigin="anonymous"/>
+    <meta charset="UTF-8">
+    <title>S'enregistrer</title>
+</head>
+<body>
+<div >
+    <div class="row mt-6" >
+        <div class="col-md-6 offset-3" >
+            <div class="card" >
+                <div class="card-body">
+                    <h4 class="text-center">S'enregistrer</h4>
+                    <div class="p-3" >
+                        <form th:action="@{/signup}" method="post" >
+                            <div class="mb-2" >
+                                <label class="form-label" for="geohash">Nom de l'utilisateur</label>
+                                <input class="form-control" type="text" id="geohash" name="username" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label  class="form-label"  for="nom">Mot de passe</label>
+                                <input class="form-control" type="text" id="nom" name="password" required/>
+                            </div>
+
+                            <div class="mb-2">
+                                <label  class="form-label"  for="nom">Confirmer le mot de passe</label>
+                                <input class="form-control" type="text"  name="confirmPWD" required/>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">S'enregistrer</button>
+                        </form>
+                        <a class="btn btn-success" th:href="@{/login}">J'ai un compte</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+</body>
+</html>

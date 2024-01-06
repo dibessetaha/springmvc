@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html"
+>
+<head>
+    <script src="webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
+    <meta charset="UTF-8">
+    <title>Monument</title>
+</head>
+<body>
+<div layout:fragment="content" >
+    <div>
+        <div class="card" >
+            <div class="card-header">Liste Celebrites</div>
+            <div class="card-body">
+                <form th:action="@{celebrites}" method="get" >
+                    <label>Mot Cle:</label>
+                    <input type="text" name="keyword"  placeholder="Rechercher par Nom" th:value="${keyword}"/>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search" ></i>
+                    </button>
+                </form>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Numéro</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Nationalité</th>
+                        <th>Époque</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="celebrite : ${celebrites}">
+                        <td th:text="${celebrite.numCelebrite}"></td>
+                        <td th:text="${celebrite.nom}"></td>
+                        <td th:text="${celebrite.prenom}"></td>
+                        <td th:text="${celebrite.nationalite}"></td>
+                        <td th:text="${celebrite.epoque}"></td>
+                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >
+                            <a onclick="javascript:return confirm('etes vous sure ?')" th:href="@{/admin/deleteCelebrite(id=${celebrite.numCelebrite})}" class="btn btn-danger" >
+                                <i class="bi bi-trash" ></i>
+                            </a>
+                            <a th:href="@{/admin/editCelebrite(id=${celebrite.numCelebrite})}" class="btn btn-success" >
+                                Modif
+                            </a>
+
+                        </td>
+
+                    </tr>
+                    </tbody>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/formCelebrites}" class="btn btn-outline-dark" >Ajouter un monument</a>
+
+
+    </div>
+</div>
+
+</body>
+</html>

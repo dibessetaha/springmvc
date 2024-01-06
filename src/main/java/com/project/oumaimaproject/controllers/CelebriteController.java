@@ -33,7 +33,7 @@ public class CelebriteController {
         return "redirect:/user/celebrites";
     }
 
-    @GetMapping("/admin/formCelebrite")
+    @GetMapping("/admin/formCelebrites")
     public String formCelebrite(Model model, Celebrite celebrite) {
         celebrite = new Celebrite() ;
         model.addAttribute("celebrite",celebrite) ;

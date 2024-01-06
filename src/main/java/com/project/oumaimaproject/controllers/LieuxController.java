@@ -1,8 +1,10 @@
 package com.project.oumaimaproject.controllers;
 
 import com.project.oumaimaproject.model.Celebrite;
+import com.project.oumaimaproject.model.Departement;
 import com.project.oumaimaproject.model.Lieu;
 import com.project.oumaimaproject.model.Monument;
+import com.project.oumaimaproject.repositories.DepartementRepository;
 import com.project.oumaimaproject.repositories.LieuRepository;
 import com.project.oumaimaproject.repositories.MonumentRepository;
 import lombok.AllArgsConstructor;
@@ -19,7 +21,7 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class LieuxController {
-
+    
 
 
 

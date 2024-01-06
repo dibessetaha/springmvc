@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html">
+<head>
+    <script src="webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
+    <meta charset="UTF-8">
+    <title>Départements</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div>
+        <div class="card">
+            <div class="card-header">Liste Départements</div>
+            <div class="card-body">
+                <form th:action="@{departements}" method="get">
+                    <label>Mot Clé:</label>
+                    <input type="text" name="keyword" placeholder="Rechercher par nom dep" th:value="${keyword}"/>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Numéro</th>
+                        <th>Nom</th>
+                        <th>Chef Lieu</th>
+                        <th>Numéro Région</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="departement : ${departements}">
+                        <td th:text="${departement.dep}"></td>
+                        <td th:text="${departement.nomDep}"></td>
+                        <td th:text="${departement.chefLieu.nomCom}"></td>
+                        <td th:text="${departement.numReg}"></td>
+                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                            <a onclick="return confirm('Êtes-vous sûr ?')" th:href="@{/admin/deleteDept(id=${departement.dep})}" class="btn btn-danger">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                            <a th:href="@{/admin/editDept(id=${departement.dep})}" class="btn btn-success">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/formDepartement}" class="btn btn-outline-dark">Ajouter un département</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouveau département</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row mt-3">
+        <div class="col-md-6 offset-3">
+            <div class="card">
+                <div class="card-header">
+                    Nouveau département
+                </div>
+                <div class="card-body">
+                    <div class="p-3">
+                        <form th:action="@{/admin/saveDept}" method="post">
+                            <div class="mb-2">
+                                <label class="form-label">Numéro</label>
+                                <input class="form-control" type="text" name="dep" th:value="${departement.dep}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="nom">Nom</label>
+                                <input class="form-control" type="text" id="nom" name="nom" th:value="${departement.nomDep}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="chefLieu">Chef Lieu</label>
+                                <select class="form-select" id="chefLieu" name="chefLieu" required>
+                                    <option th:each="lieu : ${lieux}" th:value="${lieu.codeInsee}" th:text="${lieu.nomCom}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">Numéro Région</label>
+                                <input class="form-control" type="text" id="numReg" name="numReg" th:value="${departement.numReg}" required/>
+                            </div>
+
+                            <button type="submit" class="btn btn-success">Modifier</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

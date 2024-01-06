@@ -4,7 +4,6 @@
       layout:decorate="template1.html"
 >
 <head>
-    <script src="webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
     <meta charset="UTF-8">
     <title>Monument</title>
 </head>
@@ -71,7 +70,7 @@
                 </ul>
             </div>
         </div>
-        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/formMonuments}" class="btn btn-outline-dark" >Ajouter un monument</a>
+        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/formMonuments}" class="btn btn-outline-dark me-auto" >Ajouter un monument</a>
 
 
     </div>
