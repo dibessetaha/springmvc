@@ -13,34 +13,39 @@
         <div class="col-md-6 offset-3" >
             <div class="card" >
                 <div class="card-header" >
-                    Modifier Celebrite
+                    Modifier Lieu
                 </div>
                 <div class="card-body">
                     <div class="p-3" >
-                        <form th:action="@{/admin/saveCelebrite}" method="post" >
-                            <div class="mb-2" >
-                                <label class="form-label" >Numero</label>
-                                <label class="font-monospace" th:text="${celebrite.numCelebrite}"></label>
-                                <input class="form-control" type="hidden" id="num" name="numCelebrite" th:value="${celebrite.numCelebrite}" required/>
+                        <form th:action="@{/admin/saveLieu}" method="post">
+                            <div class="mb-2">
+                                <label class="form-label">Code INSEE:</label>
+                                <label class="font-monospace" th:text="${lieu.codeInsee}"></label>
+                                <input class="form-control" type="hidden" name="codeInsee" th:value="${lieu.codeInsee}" required/>
                             </div>
                             <div class="mb-2">
-                                <label  class="form-label"  for="nom">Nom</label>
-                                <input class="form-control" type="text" id="nom" name="nom" th:value="${celebrite.nom}" required/>
+                                <label class="form-label" for="nomCom">Nom de la commune:</label>
+                                <input class="form-control" type="text" id="nomCom" name="nomCom" th:value="${lieu.nomCom}" required/>
                             </div>
                             <div class="mb-2">
-                                <label  class="form-label"  for="proprietaire">Propriétaire</label>
-                                <input class="form-control" type="text" id="proprietaire" name="prenom" th:value="${celebrite.prenom}" required/>
+                                <label class="form-label" for="longitude">Longitude:</label>
+                                <input class="form-control" type="number" id="longitude" name="longitude" th:value="${lieu.longitude}" step="any" required/>
                             </div>
                             <div class="mb-2">
-                                <label class="form-label"  for="typeMonument">Nationalite</label>
-                                <input class="form-control" type="text" id="typeMonument" name="nationalite" th:value="${celebrite.nationalite}" required/>
+                                <label class="form-label" for="latitude">Latitude:</label>
+                                <input class="form-control" type="number" id="latitude" name="latitude" step="any" th:value="${lieu.latitude}" required/>
                             </div>
                             <div class="mb-2">
-                                <label class="form-label" >Epoque</label>
-                                <input class="form-control" type="text" id="epoque" name="epoque" th:value="${celebrite.epoque}" required/>
+                                <label class="form-label" for="dept">Departement</label>
+                                <select class="form-select" id="dept" name="dept" required>
+                                    <option value="" selected disabled>Sélectionner le département</option>
+                                    <option th:each="dept : ${departements}" th:value="${dept.dep}" th:text="${dept.nomDep}"></option>
+                                </select>
                             </div>
 
-                            <button type="submit" class="btn btn-success">Modifier</button>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Modifier</button>
+                            </div>
                         </form>
                     </div>
                 </div>

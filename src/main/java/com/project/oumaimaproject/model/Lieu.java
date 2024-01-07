@@ -16,11 +16,11 @@ public class Lieu {
     private double longitude;
     private double latitude;
 
-    @OneToMany(mappedBy = "codeLieu", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "codeLieu", cascade = CascadeType.ALL)
     private List<Monument> monuments = new ArrayList<Monument>();
 
 
-    @ManyToOne(optional=false, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @ManyToOne(optional=false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="dep")
     public Departement dept;
 

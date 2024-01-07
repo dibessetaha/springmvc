@@ -24,21 +24,21 @@ public class MonumentController {
     private MonumentRepository monumentRepository ;
     private LieuRepository lieuRepository ;
     private AccountService accountService ;
-
-    @GetMapping("/signin")
-    public String login(){
-        return "login" ;
-    }
-    @GetMapping("/acceuil")
+//
+//    @GetMapping("/signin")
+//    public String login(){
+//        return "login" ;
+//    }
+    @GetMapping("/")
     public String index() {
         return "Acceuil" ;
     }
-
-    @PostMapping("/signup")
-    public String signup(String username, String password, String confirmPWD){
-        accountService.addNewUser(username,password,confirmPWD) ;
-        return "redirect:/login" ;
-    }
+//
+//    @PostMapping("/signup")
+//    public String signup(String username, String password, String confirmPWD){
+//        accountService.addNewUser(username,password,confirmPWD) ;
+//        return "redirect:/login" ;
+//    }
     @GetMapping("/user/monuments")
     public String monuments(Model model, @RequestParam(name="page",defaultValue = "0") int p , @RequestParam(name="size",defaultValue = "4") int s , @RequestParam(name="keyword",defaultValue = "") String keyword ) {
         Page<Monument> monuments = monumentRepository.findByNomContains(keyword,PageRequest.of(p,s)) ;

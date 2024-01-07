@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @AllArgsConstructor
@@ -43,6 +44,7 @@ public class DepartementController {
     @GetMapping("/admin/formDept")
     public String formDept(Model model, Departement dept) {
         dept = new Departement() ;
+        dept.setDep(UUID.randomUUID().toString().substring(0,5)) ;
         List<Lieu> lieux = lieuRepository.findAll() ;
         model.addAttribute("departement",dept) ;
         model.addAttribute("lieux",lieux) ;

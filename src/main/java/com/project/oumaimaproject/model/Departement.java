@@ -22,7 +22,7 @@ public class Departement {
     @Column(name = "numReg")
     private String numReg;
 
-    @OneToMany(targetEntity = Lieu.class, mappedBy = "dept")
+    @OneToMany(targetEntity = Lieu.class, mappedBy = "dept", cascade = CascadeType.ALL)
     private List<Lieu> lieux = new ArrayList<>();
 
     // Constructeurs
@@ -72,5 +72,9 @@ public class Departement {
 
     public void setLieux(List<Lieu> lieux) {
         this.lieux = lieux;
+    }
+
+    public void setDep(String dep) {
+        this.dep = dep ;
     }
 }

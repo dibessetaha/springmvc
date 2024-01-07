@@ -23,18 +23,20 @@
                             </div>
                             <div class="mb-2">
                                 <label class="form-label" for="nom">Nom</label>
-                                <input class="form-control" type="text" id="nom" name="nom" th:value="${departement.nomDep}" required/>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label" for="chefLieu">Chef Lieu</label>
-                                <select class="form-select" id="chefLieu" name="chefLieu" required>
-                                    <option th:each="lieu : ${lieux}" th:value="${lieu.codeInsee}" th:text="${lieu.nomCom}"></option>
-                                </select>
+                                <input class="form-control" type="text" id="nom" name="nomDep" th:value="${departement.nomDep}" required/>
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">Numéro Région</label>
                                 <input class="form-control" type="text" id="numReg" name="numReg" th:value="${departement.numReg}" required/>
                             </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="chefLieu">Chef Lieu</label>
+                                <select class="form-select" id="chefLieu" name="chefLieu" required>
+                                    <option value="" selected disabled>Sélectionner le lieu</option>
+                                    <option th:each="lieu : ${lieux}" th:value="${lieu.codeInsee}" th:text="${lieu.nomCom}"></option>
+                                </select>
+                            </div>
+
 
                             <button type="submit" class="btn btn-success">Ajouter</button>
                         </form>

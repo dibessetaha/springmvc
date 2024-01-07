@@ -14,7 +14,7 @@ public class Celebrite {
     private String nationalite;
     private String epoque;
 
-    @ManyToMany(mappedBy = "celebrites", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "celebrites", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Monument> monuments;
 
 

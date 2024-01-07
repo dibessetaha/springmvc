@@ -21,38 +21,40 @@
                         <i class="bi bi-search" ></i>
                     </button>
                 </form>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Numéro</th>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Nationalité</th>
-                        <th>Époque</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="celebrite : ${celebrites}">
-                        <td th:text="${celebrite.numCelebrite}"></td>
-                        <td th:text="${celebrite.nom}"></td>
-                        <td th:text="${celebrite.prenom}"></td>
-                        <td th:text="${celebrite.nationalite}"></td>
-                        <td th:text="${celebrite.epoque}"></td>
-                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >
-                            <a onclick="javascript:return confirm('etes vous sure ?')" th:href="@{/admin/deleteCelebrite(id=${celebrite.numCelebrite})}" class="btn btn-danger" >
-                                <i class="bi bi-trash" ></i>
-                            </a>
-                            <a th:href="@{/admin/editCelebrite(id=${celebrite.numCelebrite})}" class="btn btn-success" >
-                                Modif
-                            </a>
+                <div class="table-responsive" >
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Numéro</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Nationalité</th>
+                            <th>Époque</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="celebrite : ${celebrites}">
+                            <td th:text="${celebrite.numCelebrite}"></td>
+                            <td th:text="${celebrite.nom}"></td>
+                            <td th:text="${celebrite.prenom}"></td>
+                            <td th:text="${celebrite.nationalite}"></td>
+                            <td th:text="${celebrite.epoque}"></td>
+                            <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >
+                                <a onclick="javascript:return confirm('etes vous sure ?')" th:href="@{/admin/deleteCelebrite(id=${celebrite.numCelebrite})}" class="btn btn-danger" >
+                                    <i class="bi bi-trash" ></i>
+                                </a>
+                                <a th:href="@{/admin/editCelebrite(id=${celebrite.numCelebrite})}" class="btn btn-success" >
+                                    <i class="bi bi-pencil"></i>
+                                </a>
 
-                        </td>
+                            </td>
 
-                    </tr>
-                    </tbody>
-                    </thead>
-                </table>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
         <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/formCelebrites}" class="btn btn-outline-dark" >Ajouter un monument</a>

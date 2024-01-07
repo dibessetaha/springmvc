@@ -56,16 +56,10 @@ public class SecurityConfig {
                 e-> e
                         .requestMatchers(mvc.pattern("/admin/**")).hasRole("ADMIN")
                         .requestMatchers(mvc.pattern("/user/**")).hasRole("USER")
-                        .requestMatchers(mvc.pattern("/signup")).permitAll()
                         .anyRequest().authenticated()
 
         ) ;
-
-        httpSecurity.formLogin(e->
-                e.loginPage("/signin").permitAll()
-                        .defaultSuccessUrl("/acceuil")
-                        .failureUrl("/nonAutoriser")
-        );
+        httpSecurity.formLogin(Customizer.withDefaults());
         httpSecurity.userDetailsService(userDetailsServiceImpl);
         httpSecurity.exceptionHandling((exp)->exp.accessDeniedPage("/nonAutoriser"));
         return httpSecurity.build() ;
