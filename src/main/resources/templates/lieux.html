@@ -15,7 +15,7 @@
             <div class="card-body">
                 <form th:action="@{lieux}" method="get">
                     <label>Mot Clé:</label>
-                    <input type="text" name="keyword" placeholder="Rechercher par nom du lieu" th:value="${keyword}"/>
+                    <input type="text" name="keyword" placeholder="Rechercher par nom du lieu ou code insee" th:value="${keyword}"/>
                     <button type="submit" class="btn btn-primary">
                         <i class="bi bi-search"></i>
                     </button>

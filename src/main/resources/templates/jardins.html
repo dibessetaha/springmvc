@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html">
+<head>
+    <script src="webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
+    <meta charset="UTF-8">
+    <title>Liste des Jardins</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div>
+        <div class="card">
+            <div class="card-header">Liste des Jardins</div>
+            <div class="card-body">
+                <!-- Jardin List Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom du Jardin</th>
+                        <th>Commune</th>
+                        <th>Adresse</th>
+                        <th>Type</th>
+                        <th>Date de Création</th>
+                        <th>Conde INSEE</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="jardin : ${jardins}">
+                        <!-- Display jardin information -->
+                        <td th:text="${jardin.id}"></td>
+                        <td th:text="${jardin.nomDuJardin}"></td>
+                        <td th:text="${jardin.commune}"></td>
+                        <td th:text="${jardin.adresseComplete}"></td>
+                        <td th:text="${jardin.type}"></td>
+                        <td th:text="${jardin.dateDeCreation}"></td>
+                        <td th:text="${jardin.codeLieu.codeInsee}"></td>
+                        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >
+                            <a onclick="javascript:return confirm('etes vous sure ?')" th:href="@{/admin/deleteJardin(id=${jardin.id})}" class="btn btn-danger" >
+                                <i class="bi bi-trash" ></i>
+                            </a>
+                            <a th:href="@{/admin/editJardin(id=${jardin.id})}" class="btn btn-success" >
+                                <i class="bi bi-pencil"></i>
+                            </a>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/formJardin}"
+           class="btn btn-outline-dark">Ajouter un Jardin</a>
+    </div>
+</div>
+</body>
+</html>

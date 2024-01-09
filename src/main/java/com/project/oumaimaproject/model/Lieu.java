@@ -11,6 +11,7 @@ public class Lieu {
 
 
     @Id
+    @Column(length = 5)
     private String codeInsee;
     private String nomCom;
     private double longitude;
@@ -19,8 +20,11 @@ public class Lieu {
     @OneToMany(mappedBy = "codeLieu", cascade = CascadeType.ALL)
     private List<Monument> monuments = new ArrayList<Monument>();
 
+    @OneToMany(mappedBy = "codeLieu", cascade = CascadeType.ALL)
+    private List<Jardin> jardins = new ArrayList<Jardin>();
 
-    @ManyToOne(optional=false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @ManyToOne(optional=false, cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JoinColumn(name="dep")
     public Departement dept;
 
@@ -103,4 +107,11 @@ public class Lieu {
     }
 
 
+    public List<Jardin> getJardins() {
+        return jardins;
+    }
+
+    public void setJardins(List<Jardin> jardins) {
+        this.jardins = jardins;
+    }
 }

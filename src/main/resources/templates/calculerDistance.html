@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculer Distance</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row mt-3">
+        <div class="col-md-6 offset-3">
+            <div class="card">
+                <div class="card-header">
+                    Distance entre deux monuments
+                </div>
+                <div class="card-body">
+                    <div class="p-3">
+                        <form th:action="@{/user/calculerDistance}" method="post">
+                            <h2 th:if="${distance}" class="text-center" >Distance entre <span class="sub-title" th:text="${m1.nom}"></span> et <span class="sub-title"  th:text="${m2.nom}"></span> : <h4 class="text-center" th:text="${distance}" ></h4></h2>
+                            <div class="mb-2">
+                                <label class="form-label" >Monument 1</label>
+                                <select class="form-select" name="id1" required>
+                                    <option value="" selected disabled>Sélectionner un monument</option>
+                                    <option th:each="m : ${monuments}" th:value="${m.geohash}" th:text="${m.nom}"></option>
+                                </select>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="form-label" >Monument 2</label>
+                                <select class="form-select" name="id2" required>
+                                    <option value="" selected disabled>Sélectionner un monument</option>
+                                    <option th:each="m : ${monuments}" th:value="${m.geohash}" th:text="${m.nom}"></option>
+                                </select>
+                            </div>
+
+
+                            <button type="submit" class="btn btn-success">Calculer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

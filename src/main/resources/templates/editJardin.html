@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouveau Jardin</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row mt-3">
+        <div class="col-md-6 offset-3">
+            <div class="card">
+                <div class="card-header">
+                    Nouveau Jardin
+                </div>
+                <div class="card-body">
+                    <div class="p-3">
+                        <form th:action="@{/admin/saveJardin}" method="post">
+                            <div class="mb-2">
+                                <label class="form-label">ID</label>
+                                <label class="font-monospace" th:text="${jardin.id}"></label>
+                                <input class="form-control" type="hidden" name="dep" th:value="${jardin.id}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="nomDuJardin">Nom du Jardin:</label>
+                                <input class="form-control" type="text" id="nomDuJardin" name="nomDuJardin" th:value="${jardin.nomDuJardin}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="commune">Commune:</label>
+                                <input class="form-control" type="text" id="commune" name="commune" th:value="${jardin.commune}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="adresseComplete">Adresse:</label>
+                                <input class="form-control" type="text" id="adresseComplete" name="adresseComplete" th:value="${jardin.adresseComplete}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="type">Type:</label>
+                                <input class="form-control" type="text" id="type" name="type" th:value="${jardin.type}" required/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label" for="dateDeCreation">Date de Création:</label>
+                                <input class="form-control" type="date" id="dateDeCreation" name="dateDeCreation" th:value="${jardin.dateDeCreation}" required/>
+                            </div>
+
+                            <div class="mb-2">
+                                <label class="form-label" for="codeLieu">Code INSEE</label>
+                                <select class="form-select" id="codeLieu" name="codeLieu" required>
+                                    <option value="" selected disabled>Sélectionner le lieu</option>
+                                    <option th:each="lieu : ${lieux}" th:value="${lieu.codeInsee}" th:text="${lieu.nomCom}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Modifier</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

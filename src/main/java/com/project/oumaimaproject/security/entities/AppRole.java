@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class AppRole {
+
     @Id
     private String role ;
 }

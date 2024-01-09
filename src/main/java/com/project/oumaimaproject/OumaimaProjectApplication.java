@@ -38,10 +38,12 @@ public class OumaimaProjectApplication  {
 
             accountService.addNewUser("taha","1234","1234") ;
             accountService.addNewUser("oumaima","1111","1111") ;
+            accountService.addNewUser("username1","12345","12345");
 
             accountService.addRoleToUser("oumaima","USER");
             accountService.addRoleToUser("oumaima","ADMIN");
             accountService.addRoleToUser("taha","USER");
+            accountService.addRoleToUser("username1","USER");
 
         };
     }

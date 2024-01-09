@@ -28,7 +28,7 @@ public class LieuxController {
 
     @GetMapping("/user/lieux")
     public String lieux(Model model, @RequestParam(name="keyword",defaultValue = "") String keyword) {
-        List<Lieu> lieux = lieuRepository.findByNomComContaining(keyword) ;
+        List<Lieu> lieux = lieuRepository.findByNomComContainingOrCodeInseeContaining(keyword,keyword) ;
         model.addAttribute("lieux",lieux) ;
         model.addAttribute("keyword",keyword) ;
         return "lieux" ;

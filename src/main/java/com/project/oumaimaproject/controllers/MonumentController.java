@@ -21,6 +21,8 @@ import java.util.List;
 @AllArgsConstructor
 public class MonumentController {
 
+    private static final double EARTH_RADIUS = 6371 ;
+
     private MonumentRepository monumentRepository ;
     private LieuRepository lieuRepository ;
     private AccountService accountService ;
@@ -67,7 +69,7 @@ public class MonumentController {
 
 
     @PostMapping("/admin/saveMonument")
-    public String saveMonumrnt(Monument monument){
+    public String saveMonument(Monument monument){
         monumentRepository.save(monument) ;
         return "redirect:/user/monuments?keyword="+monument.getNom();
 
@@ -90,5 +92,37 @@ public class MonumentController {
 
     }
 
+    @GetMapping("/user/calculerDistance")
+    public String calculer(Model model){
+        List<Monument> monuments = monumentRepository.findAll() ;
+        model.addAttribute("monuments", monuments);
+        return  "calculerDistance" ;
+
+    }
+
+    @PostMapping("/user/calculerDistance")
+    public String calculerDistane(Model model, String id1, String id2){
+        System.out.println(id1);
+        List<Monument> monuments = monumentRepository.findAll() ;
+        Monument monument1 = monumentRepository.findById(id1).get() ;
+        Monument monument2 = monumentRepository.findById(id2).get() ;
+        double distance = 0 ;
+        double dLat = Math.toRadians(monument2.getLatitude() - monument1.getLatitude());
+        double dLon = Math.toRadians(monument2.getLongitude() - monument1.getLongitude());
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(monument1.getLatitude())) * Math.cos(Math.toRadians(monument2.getLatitude())) *
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        distance = EARTH_RADIUS * c;
+        model.addAttribute("distance",Math.round(distance*1000)+" m");
+        model.addAttribute("m1",monument1) ;
+        model.addAttribute("m2",monument2) ;
+        model.addAttribute("monuments", monuments);
+        return  "calculerDistance" ;
+
+    }
 
 }

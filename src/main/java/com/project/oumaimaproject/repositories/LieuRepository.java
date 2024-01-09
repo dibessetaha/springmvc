@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface LieuRepository extends JpaRepository<Lieu,String> {
 
-    List<Lieu> findByNomComContaining(String keyword);
+    List<Lieu> findByNomComContainingOrCodeInseeContaining(String nomCom, String codeInsee);
 }
