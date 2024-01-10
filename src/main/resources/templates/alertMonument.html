@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1.html"
+>
+<head>
+    <script src="webjars/bootstrap/5.3.2/js/bootstrap.bundle.js"></script>
+    <meta charset="UTF-8">
+    <title>Monument</title>
+</head>
+<body>
+<div layout:fragment="content" >
+    <div class="alert alert-success mt-2" role="alert">
+        <h2 class="alert-heading">Liste des Monuments - Lieu <span th:text="${nomLieu}" ></span> </h2>
+        <h4 class="sub-title">Monuments : </h4>
+        <span th:each="m : ${monuments}">
+         - <span th:text="${m.nom}" ></span>  | <span th:text="${m.geohash}" ></span>
+        </span>
+        <hr>
+        <p class="mb-0">Merci pour votre visite !</p>
+    </div>
+
+</div>
+
+</body>
+</html>

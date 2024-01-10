@@ -40,7 +40,7 @@
                         <td th:text="${lieu.latitude}"></td>
                         <td th:text="${lieu.dept.dep}"></td>
                         <td>
-                            <button class="btn btn-info" >Monuments</button>
+                            <a th:href="@{/user/monument/lieu(id=${lieu.codeInsee}, nomLieu=${lieu.nomCom})}" class="btn btn-info" >Monuments</a>
                         </td>
                         <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >
                             <a onclick="javascript:return confirm('etes vous sure ?')" th:href="@{/admin/deleteLieu(id=${lieu.codeInsee},keyword=${keyword})}" class="btn btn-danger" >

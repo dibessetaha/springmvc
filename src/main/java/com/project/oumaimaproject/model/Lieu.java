@@ -17,10 +17,10 @@ public class Lieu {
     private double longitude;
     private double latitude;
 
-    @OneToMany(mappedBy = "codeLieu", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "codeLieu", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Monument> monuments = new ArrayList<Monument>();
 
-    @OneToMany(mappedBy = "codeLieu", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "codeLieu", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Jardin> jardins = new ArrayList<Jardin>();
 
 

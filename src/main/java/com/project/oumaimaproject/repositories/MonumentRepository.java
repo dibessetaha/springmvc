@@ -1,6 +1,7 @@
 package com.project.oumaimaproject.repositories;
 
 import com.project.oumaimaproject.model.Celebrite;
+import com.project.oumaimaproject.model.Lieu;
 import com.project.oumaimaproject.model.Monument;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,4 +17,6 @@ public interface MonumentRepository extends JpaRepository<Monument,String> {
 
     @Query("SELECT m.celebrites FROM Monument m WHERE m.geohash = :geohash")
     List<Celebrite> findCelebritiesByMonumentGeohash(@Param("geohash") String geohash);
+
+    public List<Monument> findByCodeLieu(Lieu codeLieu);
 }

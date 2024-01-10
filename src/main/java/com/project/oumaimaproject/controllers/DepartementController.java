@@ -63,6 +63,7 @@ public class DepartementController {
     public String editDept(Model model, @RequestParam(name = "id") String id){
         Departement dept = departementRepository.findById(id).get() ;
         List<Lieu> lieux = lieuRepository.findAll() ;
+        System.out.println(lieux.get(0).getNomCom());
         model.addAttribute("departement",dept) ;
         model.addAttribute("lieux",lieux) ;
         return "editdept" ;

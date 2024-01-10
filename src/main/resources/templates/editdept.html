@@ -12,7 +12,7 @@
         <div class="col-md-6 offset-3">
             <div class="card">
                 <div class="card-header">
-                    Nouveau département
+                    Modifier département
                 </div>
                 <div class="card-body">
                     <div class="p-3">
@@ -34,7 +34,7 @@
                             <div class="mb-2">
                                 <label class="form-label" for="chefLieu">Chef Lieu</label>
                                 <select class="form-select" id="chefLieu" name="chefLieu" required>
-                                    <option th:value="" selected disabled>Sélectionner le lieu </option>
+                                    <option value="" selected disabled>Sélectionner le lieu </option>
                                     <option th:each="lieu : ${lieux}" th:value="${lieu.codeInsee}" th:text="${lieu.nomCom}"></option>
                                 </select>
                             </div>

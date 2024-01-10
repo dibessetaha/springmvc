@@ -85,9 +85,21 @@ public class MonumentController {
     }
 
     @GetMapping("/user/monument/celebrities")
-    public List<Celebrite> monumCelebrites(String id) {
+    public String monumCelebrites(Model model , String id, String nom) {
         List<Celebrite> celebrites = monumentRepository.findCelebritiesByMonumentGeohash(id) ;
-        return celebrites ;
+        model.addAttribute("celebrites",celebrites) ;
+        model.addAttribute("nom",nom);
+        return "alertCelebrite" ;
+
+
+    }
+    @GetMapping("/user/monument/lieu")
+    public String monumLieux(Model model , String id, String nomLieu) {
+        Lieu lieu = lieuRepository.findById(id).get() ;
+        List<Monument> monuments = monumentRepository.findByCodeLieu(lieu) ;
+        model.addAttribute("monuments",monuments) ;
+        model.addAttribute("nomLieu",nomLieu);
+        return "alertMonument" ;
 
 
     }

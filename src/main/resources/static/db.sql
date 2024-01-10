@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : mysql.etu.umontpellier.fr
--- Généré le : jeu. 12 oct. 2023 à 09:00
--- Version du serveur : 10.1.47-MariaDB
--- Version de PHP : 7.2.16
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 09, 2024 at 06:26 PM
+-- Server version: 5.7.36
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,22 +18,90 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `e20220012372`
+-- Database: `e202200123721`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `associea`
+-- Table structure for table `app_role`
 --
 
-CREATE TABLE `associea` (
-                            `codeM` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
-                            `num_Celebrite` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `app_role`;
+CREATE TABLE IF NOT EXISTS `app_role` (
+    `role` varchar(255) NOT NULL,
+    PRIMARY KEY (`role`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `associea`
+-- Dumping data for table `app_role`
+--
+
+INSERT INTO `app_role` (`role`) VALUES
+                                    ('ADMIN'),
+                                    ('USER');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `app_user`
+--
+
+DROP TABLE IF EXISTS `app_user`;
+CREATE TABLE IF NOT EXISTS `app_user` (
+    `user_id` varchar(255) NOT NULL,
+    `password` varchar(255) DEFAULT NULL,
+    `username` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`user_id`),
+    UNIQUE KEY `UK_3k4cplvh82srueuttfkwnylq0` (`username`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `app_user`
+--
+
+INSERT INTO `app_user` (`user_id`, `password`, `username`) VALUES
+                                                               ('92e7b5ce-5638-4629-98e9-e05d5f559461', '$2a$10$80cy8Xtm3KouFePlWh9SAeTTMH1kOIlDFXPSZF3CcJKr5yM.f4zWm', 'oumaima'),
+                                                               ('f550a262-9587-43b8-aa30-ae9cff3a4856', '$2a$10$jnA6AxlF1cu5fGB1KerSJ.uwNnG1ltwV6KmlYN7HKrHpBVY4ToH3.', 'taha');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `app_user_roles`
+--
+
+DROP TABLE IF EXISTS `app_user_roles`;
+CREATE TABLE IF NOT EXISTS `app_user_roles` (
+    `app_user_user_id` varchar(255) NOT NULL,
+    `roles_role` varchar(255) NOT NULL,
+    KEY `FKgr9tde1lxmnugu1yf5rbdqe24` (`roles_role`),
+    KEY `FK7j68xnb7cl41m3b1leb0b186g` (`app_user_user_id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `app_user_roles`
+--
+
+INSERT INTO `app_user_roles` (`app_user_user_id`, `roles_role`) VALUES
+                                                                    ('92e7b5ce-5638-4629-98e9-e05d5f559461', 'USER'),
+                                                                    ('92e7b5ce-5638-4629-98e9-e05d5f559461', 'ADMIN'),
+                                                                    ('f550a262-9587-43b8-aa30-ae9cff3a4856', 'USER');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `associea`
+--
+
+DROP TABLE IF EXISTS `associea`;
+CREATE TABLE IF NOT EXISTS `associea` (
+    `codeM` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `num_Celebrite` int(11) NOT NULL,
+    KEY `FKi1cnj8em1pwtbbetdhjxh5bp8` (`codeM`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `associea`
 --
 
 INSERT INTO `associea` (`codeM`, `num_Celebrite`) VALUES
@@ -51,19 +119,21 @@ INSERT INTO `associea` (`codeM`, `num_Celebrite`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `celebrite`
+-- Table structure for table `celebrite`
 --
 
-CREATE TABLE `celebrite` (
-                             `num_Celebrite` int(11) AUTO_INCREMENT PRIMARY KEY,
-                             `nom` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                             `prenom` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                             `nationalite` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                             `epoque` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `celebrite`;
+CREATE TABLE IF NOT EXISTS `celebrite` (
+    `num_Celebrite` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `nom` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `prenom` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `nationalite` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `epoque` varchar(6) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    PRIMARY KEY (`num_Celebrite`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `celebrite`
+-- Dumping data for table `celebrite`
 --
 
 INSERT INTO `celebrite` (`num_Celebrite`, `nom`, `prenom`, `nationalite`, `epoque`) VALUES
@@ -75,24 +145,26 @@ INSERT INTO `celebrite` (`num_Celebrite`, `nom`, `prenom`, `nationalite`, `epoqu
                                                                                         (6, 'Giral', 'Jean-Antoine', 'Francaise', 'XVIII'),
                                                                                         (7, 'Donnat', 'Jacques', 'Francaise', 'XVIII'),
                                                                                         (8, 'Rabelais', 'Francois', 'Francaise', 'XVI'),
-                                                                                        (9, 'De Villeneuve', 'Arnaud', 'Francaise', 'XIII'),
-                                                                                        (10, 'De Nostredame', 'Michel', 'Francaise', 'XVI');
+                                                                                        (9, 'De Villeneuve', 'Arnaud', 'Francaise', 'XIII');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `departement`
+-- Table structure for table `departement`
 --
 
-CREATE TABLE `departement` (
-                               `dep` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL,
-                               `nom_Dep` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                               `chef_Lieu` varchar(46) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                               `num_reg` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `departement`;
+CREATE TABLE IF NOT EXISTS `departement` (
+    `dep` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `nom_Dep` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `chef_Lieu` varchar(46) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `num_reg` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    PRIMARY KEY (`dep`),
+    KEY `departement_fk` (`chef_Lieu`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `departement`
+-- Dumping data for table `departement`
 --
 
 INSERT INTO `departement` (`dep`, `nom_Dep`, `chef_Lieu`, `num_reg`) VALUES
@@ -102,19 +174,52 @@ INSERT INTO `departement` (`dep`, `nom_Dep`, `chef_Lieu`, `num_reg`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `lieu`
+-- Table structure for table `jardin`
 --
 
-CREATE TABLE `lieu` (
-                        `code_Insee` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-                        `nom_Com` varchar(46) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                        `longitude` float DEFAULT NULL,
-                        `latitude` float DEFAULT NULL,
-                        `dep` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `jardin`;
+CREATE TABLE IF NOT EXISTS `jardin` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `adresse` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `commune` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `date_creation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `nom_du_jardin` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `type` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `code_Insee` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `adresse_complete` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `date_de_creation` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `jardin_fk` (`code_Insee`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `lieu`
+-- Dumping data for table `jardin`
+--
+
+INSERT INTO `jardin` (`id`, `adresse`, `commune`, `date_creation`, `nom_du_jardin`, `type`, `code_Insee`, `adresse_complete`, `date_de_creation`) VALUES
+                                                                                                                                                      (1, 'Château de Flaugergues, 1744 Av. Albert Einstein, 34000 Montpellier, France', 'Montpellier', '2020-12-11', 'Parc de Flaugergues', 'Jardin régulier Parc paysager Jardin privé', '34172', NULL, NULL),
+                                                                                                                                                      (2, '74 Rue Jean Valette, 34500 Béziers, France', 'Béziers​', '2020-12-11', 'Jardin de la Villa Antonine', 'Jardin remarquable', '34032', NULL, NULL),
+                                                                                                                                                      (3, '45 Av. Jean Jaurès, 30900 Nîmes, France', 'Nîmes', '2020-12-11', 'Jardins de la Fontaine', 'Parc paysager, Jardin public', '30189', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lieu`
+--
+
+DROP TABLE IF EXISTS `lieu`;
+CREATE TABLE IF NOT EXISTS `lieu` (
+    `code_Insee` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `nom_Com` varchar(46) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `longitude` float DEFAULT NULL,
+    `latitude` float DEFAULT NULL,
+    `dep` varchar(4) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    PRIMARY KEY (`code_Insee`),
+    KEY `lieu_fk` (`dep`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `lieu`
 --
 
 INSERT INTO `lieu` (`code_Insee`, `nom_Com`, `longitude`, `latitude`, `dep`) VALUES
@@ -125,34 +230,35 @@ INSERT INTO `lieu` (`code_Insee`, `nom_Com`, `longitude`, `latitude`, `dep`) VAL
                                                                                  ('34142', 'LODEVE', 3.31398, 43.7337, '34'),
                                                                                  ('34172', 'MONTPELLIER', 3.87672, 43.6108, '34'),
                                                                                  ('34198', 'PEROLS', 3.95421, 43.5638, '34'),
-                                                                                 ('34199', 'PEZENAS', 3.42319, 43.4615, '34');
+                                                                                 ('34199', 'PEZENAS', 3.42319, 43.4615, '34'),
+                                                                                 ('9119', '222', 2, 1, '34');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `monument`
+-- Table structure for table `monument`
 --
 
-CREATE TABLE `monument` (
-                            `geohash` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
-                            `nom` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                            `proprietaire` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                            `typeM` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                            `longitude` float DEFAULT NULL,
-                            `latitude` float DEFAULT NULL,
-                            `code_Insee` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `monument`;
+CREATE TABLE IF NOT EXISTS `monument` (
+    `geohash` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `nom` varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `proprietaire` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `typeM` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `longitude` float DEFAULT NULL,
+    `latitude` float DEFAULT NULL,
+    `code_Insee` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    PRIMARY KEY (`geohash`),
+    KEY `monument_fk` (`code_Insee`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `monument`
+-- Dumping data for table `monument`
 --
-
-
 
 INSERT INTO `monument` (`geohash`, `nom`, `proprietaire`, `typeM`, `longitude`, `latitude`, `code_Insee`) VALUES
                                                                                                               ('spdrjzvhx3eu', 'SQUARE MOLIERE', 'PUBLIC', 'SQUARE', 3.42393, 43.4613, '34199'),
                                                                                                               ('spdzbn81hv6q', 'EGLISE SAINT-MICHEL DE MONTELS', 'PUBLIC', 'EGLISE', 3.86739, 43.5857, '34172'),
-                                                                                                              ('spf8p5eby8du', 'EGLISE SAINTE-CROIX DE CELLENEUVE', 'PUBLIC', 'EGLISE', 3.82868, 43.6131, '34172'),
                                                                                                               ('spf8pgvv6wse', 'EGLISE SAINTE-THERESE-DE-LISIEUX DE MONTPELLIER', 'PUBLIC', 'EGLISE', 3.86421, 43.6153, '34172'),
                                                                                                               ('spfb04fe0zkn', 'EGLISE SAINTE-EULALIE DE MONTPELLIER', 'PUBLIC', 'EGLISE', 3.87066, 43.6094, '34172'),
                                                                                                               ('spfb04jd7ux5', 'EGLISE SAINT-DENIS DE MONTPELLIER', 'PUBLIC', 'EGLISE', 3.87491, 43.6051, '34172'),
@@ -204,56 +310,23 @@ INSERT INTO `monument` (`geohash`, `nom`, `proprietaire`, `typeM`, `longitude`, 
 
 -- --------------------------------------------------------
 
-CREATE TABLE `jardin` (
-                          `num_jardin` int(11) AUTO_INCREMENT PRIMARY KEY,
-                          `adresse` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                          `commune` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                          `date_creation` DATE COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                          `nom_du_jardin` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                          `type` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                          `code_Insee` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
--- ------------------------------------------------
-
-
 --
--- Déchargement des données de la table `jardin`
+-- Table structure for table `personne`
 --
 
-INSERT INTO jardin (adresse, commune, date_creation, nom_du_jardin, type, code_Insee)
-VALUES
-    ('Château de Flaugergues, 1744 Av. Albert Einstein, 34000 Montpellier, France', 'Montpellier', '2020-12-11', 'Parc de Flaugergues', 'Jardin régulier Parc paysager Jardin privé', '34172');
-
-INSERT INTO jardin (adresse, commune, date_creation, nom_du_jardin, type, code_Insee)
-VALUES
-    ('74 Rue Jean Valette, 34500 Béziers, France', 'Béziers​', '2020-12-11', 'Jardin de la Villa Antonine', 'Jardin remarquable', '34032');
-
-
-
-INSERT INTO jardin (adresse, commune, date_creation, nom_du_jardin, type, code_Insee) VALUES ('45 Av. Jean Jaurès, 30900 Nîmes, France', 'Nîmes', '2020-12-11', 'Jardins de la Fontaine', 'Parc paysager, Jardin public', '30189');
-
---
--- Structure de la table `personne`
---
-
-CREATE TABLE `personne` (
-                            `numSS` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
-                            `nom` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                            `dateN` date DEFAULT NULL,
-                            `genre` varchar(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-                            `localisation` varchar(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------
-CREATE TABLE IF NOT EXISTS `app_user_roles` (
-    `app_user_user_id` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `roles_role` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+DROP TABLE IF EXISTS `personne`;
+CREATE TABLE IF NOT EXISTS `personne` (
+    `numSS` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `nom` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `dateN` date DEFAULT NULL,
+    `genre` varchar(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `localisation` varchar(12) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    PRIMARY KEY (`numSS`),
+    KEY `personne_fk` (`localisation`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `personne`
+-- Dumping data for table `personne`
 --
 
 INSERT INTO `personne` (`numSS`, `nom`, `dateN`, `genre`, `localisation`) VALUES
@@ -265,20 +338,21 @@ INSERT INTO `personne` (`numSS`, `nom`, `dateN`, `genre`, `localisation`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `produits`
+-- Table structure for table `produits`
 --
 
-CREATE TABLE `produits` (
-                            `numProduit` int(11) NOT NULL,
-                            `catégorie` enum('téléphone','tablette','écouteurs') DEFAULT NULL,
-                            `nom` varchar(50) NOT NULL DEFAULT '',
-                            `marque` varchar(50) NOT NULL DEFAULT '',
-                            `prix` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+DROP TABLE IF EXISTS `produits`;
+CREATE TABLE IF NOT EXISTS `produits` (
+    `numProduit` int(11) NOT NULL,
+    `catégorie` enum('téléphone','tablette','écouteurs') DEFAULT NULL,
+    `nom` varchar(50) NOT NULL DEFAULT '',
+    `marque` varchar(50) NOT NULL DEFAULT '',
+    `prix` float DEFAULT NULL,
+    PRIMARY KEY (`numProduit`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `produits`
+-- Dumping data for table `produits`
 --
 
 INSERT INTO `produits` (`numProduit`, `catégorie`, `nom`, `marque`, `prix`) VALUES
@@ -292,16 +366,18 @@ INSERT INTO `produits` (`numProduit`, `catégorie`, `nom`, `marque`, `prix`) VAL
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ville`
+-- Table structure for table `ville`
 --
 
-CREATE TABLE `ville` (
-                         `nom` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
-                         `pays` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+DROP TABLE IF EXISTS `ville`;
+CREATE TABLE IF NOT EXISTS `ville` (
+    `nom` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
+    `pays` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    PRIMARY KEY (`nom`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `ville`
+-- Dumping data for table `ville`
 --
 
 INSERT INTO `ville` (`nom`, `pays`) VALUES
@@ -311,95 +387,48 @@ INSERT INTO `ville` (`nom`, `pays`) VALUES
                                         ('Paris', 'France');
 
 --
--- Index pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Index pour la table `associea`
+-- Constraints for table `app_user_roles`
+--
+ALTER TABLE `app_user_roles`
+    ADD CONSTRAINT `FK7j68xnb7cl41m3b1leb0b186g` FOREIGN KEY (`app_user_user_id`) REFERENCES `app_user` (`user_id`),
+  ADD CONSTRAINT `FKgr9tde1lxmnugu1yf5rbdqe24` FOREIGN KEY (`roles_role`) REFERENCES `app_role` (`role`);
+
+--
+-- Constraints for table `associea`
 --
 ALTER TABLE `associea`
-    ADD PRIMARY KEY (`codeM`,`num_Celebrite`),
-  ADD KEY `num_Celebrite` (`num_Celebrite`);
-
+    ADD CONSTRAINT `FKi1cnj8em1pwtbbetdhjxh5bp8` FOREIGN KEY (`codeM`) REFERENCES `monument` (`geohash`);
 
 --
--- Index pour la table `departement`
---
-ALTER TABLE `departement`
-    ADD PRIMARY KEY (`dep`),
-  ADD KEY `departement_fk` (`chef_Lieu`);
-
---
--- Index pour la table `lieu`
---
-ALTER TABLE `lieu`
-    ADD PRIMARY KEY (`code_Insee`),
-  ADD KEY `lieu_fk` (`dep`);
-
---
--- Index pour la table `monument`
---
-ALTER TABLE `monument`
-    ADD PRIMARY KEY (`geohash`),
-  ADD KEY `monument_fk` (`code_Insee`);
-
---
--- Index pour la table `personne`
---
-ALTER TABLE `personne`
-    ADD PRIMARY KEY (`numSS`),
-  ADD KEY `personne_fk` (`localisation`);
-
---
--- Index pour la table `produits`
---
-ALTER TABLE `produits`
-    ADD PRIMARY KEY (`numProduit`);
-
---
--- Index pour la table `ville`
---
-ALTER TABLE `ville`
-    ADD PRIMARY KEY (`nom`);
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `associea`
---
-ALTER TABLE `associea`
-    ADD CONSTRAINT `associea_ibfk_1` FOREIGN KEY (`codeM`) REFERENCES `monument` (`geohash`),
-  ADD CONSTRAINT `associea_ibfk_2` FOREIGN KEY (`num_Celebrite`) REFERENCES `celebrite` (`num_Celebrite`);
-
---
--- Contraintes pour la table `departement`
+-- Constraints for table `departement`
 --
 ALTER TABLE `departement`
     ADD CONSTRAINT `departement_fk` FOREIGN KEY (`chef_Lieu`) REFERENCES `lieu` (`code_Insee`);
 
 --
--- Contraintes pour la table `lieu`
+-- Constraints for table `jardin`
+--
+ALTER TABLE `jardin`
+    ADD CONSTRAINT `jardin_fk` FOREIGN KEY (`code_Insee`) REFERENCES `lieu` (`code_Insee`);
+
+--
+-- Constraints for table `lieu`
 --
 ALTER TABLE `lieu`
     ADD CONSTRAINT `lieu_fk` FOREIGN KEY (`dep`) REFERENCES `departement` (`dep`);
 
 --
--- Contraintes pour la table `monument`
+-- Constraints for table `monument`
 --
 ALTER TABLE `monument`
     ADD CONSTRAINT `monument_fk` FOREIGN KEY (`code_Insee`) REFERENCES `lieu` (`code_Insee`);
 
 --
--- Contraintes pour la table `jardin`
---
-
-ALTER TABLE `jardin`
-    ADD CONSTRAINT `jardin_fk` FOREIGN KEY (`code_Insee`) REFERENCES `lieu` (`code_Insee`);
-
---
--- Contraintes pour la table `personne`
+-- Constraints for table `personne`
 --
 ALTER TABLE `personne`
     ADD CONSTRAINT `personne_fk` FOREIGN KEY (`localisation`) REFERENCES `ville` (`nom`) ON DELETE CASCADE;

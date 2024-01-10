@@ -43,7 +43,7 @@
                         <td th:text="${monument.longitude}"></td>
                         <td th:text="${monument.codeLieu.nomCom}"></td>
                         <td>
-                            <button class="btn btn-info" >Celebrités</button>
+                            <a th:href="@{/user/monument/celebrities(id=${monument.geohash}, nom=${monument.nom})}" class="btn btn-info" >Celebrités</a>
                         </td>
                         <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}" >
                             <a onclick="javascript:return confirm('etes vous sure ?')" th:href="@{/admin/delete(id=${monument.geohash},keyword=${keyword}, page=${currentPage})}" class="btn btn-danger" >
